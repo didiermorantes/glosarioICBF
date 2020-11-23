@@ -13,7 +13,7 @@ require_once 'palabras.php';
         <!-- Bootstrap CSS -->
         <link rel="stylesheet" href="estilos.css">
 
-    <title>Hello, world!</title>
+    <title>Glosario ICBF</title>
   </head>
   <body>
 
@@ -35,42 +35,86 @@ require_once 'palabras.php';
                 BÚSQUEDA
             </div>
         </div>
-        <div class="row">       
-          <div class="col-sm-9">
-          <form action="glosario2.php" method="post">
-            <button type="submit" name="a" value="a" class="btn btn-secondary">A</button>
-            <button type="submit" name="b" value="b" class="btn btn-secondary">B</button>
-            <button type="submit" name="c" value="c" class="btn btn-secondary">C</button>
-            <button type="submit" name="d" value="d" class="btn btn-secondary">D</button>
-            <button type="submit" name="e" value="e" class="btn btn-secondary">E</button>
-            <button type="submit" name="f" value="f" class="btn btn-secondary">F</button>
-            <button type="submit" name="g" value="g" class="btn btn-secondary">G</button>
-            <button type="submit" name="h" value="h" class="btn btn-secondary">H</button>
-            <button type="submit" name="i" value="i" class="btn btn-secondary">I</button>
-            <button type="submit" name="j" value="j" class="btn btn-secondary">J</button>
-            <button type="submit" name="k" value="k" class="btn btn-secondary">K</button>
-            <button type="submit" name="l" value="l" class="btn btn-secondary">L</button>
-            <button type="submit" name="m" value="m" class="btn btn-secondary">M</button>
-            <button type="submit" name="n" value="n" class="btn btn-secondary">N</button>
-            <button type="submit" name="ñ" value="ñ" class="btn btn-secondary">Ñ</button>
-            <button type="submit" name="o" value="o" class="btn btn-secondary">O</button>
-            <button type="submit" name="p" value="p" class="btn btn-secondary">P</button>
-            <button type="submit" name="q" value="q" class="btn btn-secondary">Q</button>
-            <button type="submit" name="r" value="r" class="btn btn-secondary">R</button>
-            <button type="submit" name="s" value="s" class="btn btn-secondary">S</button>
-            <button type="submit" name="t" value="t" class="btn btn-secondary">T</button>
-            <button type="submit" name="u" value="u" class="btn btn-secondary">U</button>
-            <button type="submit" name="v" value="v" class="btn btn-secondary">V</button>
-            <button type="submit" name="w" value="w" class="btn btn-secondary">W</button>
-            <button type="submit" name="x" value="x" class="btn btn-secondary">X</button>
-            <button type="submit" name="y" value="y" class="btn btn-secondary">Y</button>
-            <button type="submit" name="z" value="z" class="btn btn-secondary">Z</button>
-          </form>
-          </div>
+        <form action="glosario2.php" method="post">  
+        <div class="row">     
+          <div class="col-sm-9">   
+             
+                <div class="row">  
+
+                    <!--
+                    <div class="row">
+                    -->
+                    <button type="submit" name="a" value="a" class="btn btn-secondary boton">A</button>
+
+                    <button type="submit" name="b" value="b" class="btn btn-secondary boton">B</button>
+
+                    <button type="submit" name="c" value="c" class="btn btn-secondary boton">C</button>
+
+                    <button type="submit" name="d" value="d" class="btn btn-secondary boton">D</button>
+
+                    <button type="submit" name="e" value="e" class="btn btn-secondary boton">E</button>
+
+                    <button type="submit" name="f" value="f" class="btn btn-secondary boton">F</button>
+
+                    <button type="submit" name="g" value="g" class="btn btn-secondary boton">G</button>
+
+                    <button type="submit" name="h" value="h" class="btn btn-secondary boton">H</button>
+
+                    <button type="submit" name="i" value="i" class="btn btn-secondary boton">I</button>
+        
+                    <button type="submit" name="j" value="j" class="btn btn-secondary boton">J</button>
+
+                    <button type="submit" name="k" value="k" class="btn btn-secondary boton">K</button>
+
+                    <button type="submit" name="l" value="l" class="btn btn-secondary boton">L</button>
+
+                    <button type="submit" name="m" value="m" class="btn btn-secondary boton">M</button>
+
+                    <button type="submit" name="n" value="n" class="btn btn-secondary boton">N</button>
+                    <!--
+                    </div>
+                    -->
+                    
+
+                    <!--
+                    <div class="row">
+                    -->
+                    <button type="submit" name="ñ" value="ñ" class="btn btn-secondary boton">Ñ</button>
+
+                    <button type="submit" name="o" value="o" class="btn btn-secondary boton">O</button>
+
+                    <button type="submit" name="p" value="p" class="btn btn-secondary boton">P</button>
+
+                    <button type="submit" name="q" value="q" class="btn btn-secondary boton">Q</button>
+
+                    <button type="submit" name="r" value="r" class="btn btn-secondary boton">R</button>
+
+                    <button type="submit" name="s" value="s" class="btn btn-secondary boton">S</button>
+
+                    <button type="submit" name="t" value="t" class="btn btn-secondary boton">T</button>
+
+                    <button type="submit" name="u" value="u" class="btn btn-secondary boton">U</button>
+
+                    <button type="submit" name="v" value="v" class="btn btn-secondary boton">V</button>
+
+                    <button type="submit" name="w" value="w" class="btn btn-secondary boton">W</button>
+
+                    <button type="submit" name="x" value="x" class="btn btn-secondary boton">X</button>
+
+                    <button type="submit" name="y" value="y" class="btn btn-secondary boton">Y</button>
+
+                    <button type="submit" name="z" value="z" class="btn btn-secondary boton">Z</button> 
+                    <!--
+                    </div>
+                    -->
+                </div> <!-- cierre row linea 42 -->
+          
+          </div> <!-- cierre col-sm-9 linea 40 -->
           <div class="col-sm-3">
-            <button type="button" class="btn btn-primary">LIMPIAR</button>
-          </div>
-        </div>
+            <button type="submit" name="clear" value="y" class="btn btn-primary limpiar">LIMPIAR</button>
+          </div> <!-- cierre col-sm-3 -->        
+        </div> <!-- fin row linea 39 -->
+        </form>
       </div>
 
       <div class="container">
@@ -171,20 +215,27 @@ require_once 'palabras.php';
             } 
         if(isset($_POST['z'])) { 
             $palabra = Palabras::buscarPorLetra('z');
-            }           
+            }  
+            
+        if(isset($_POST['clear'])) { 
+                $palabra = Palabras::limpiar();
+                }    
       else{
         echo "";
       }
         ?>
         </div>
 
+        <!--
         <div class="row row-cols-4">
+        -->
+        <div class ="row">
                     <?php   
                     if (isset($palabra)){
                     if(!empty($palabra) ){
                         foreach($palabra as $resultado){
-                            echo '<div class="padre">';
-                            echo '<div class="col">';
+                            echo '<div class="col-md-3 padre">';
+                            echo '<div class="col-sm">';
                                 echo '<div class="card">';
                                     echo '<div class="card-body" data-toggle="modal" data-target="#modal'.$resultado['id'].'">';
                                         echo '<h5 class="card-title">'.$resultado['termino'].'</h5>';

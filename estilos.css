@@ -3,3 +3,21 @@
     margin-bottom: 5px;
     
 }
+
+.letras{
+    display: flex;
+    justify-content: center;
+   
+}
+.boton{
+    margin-left: 2.7%;
+    margin-top: 1.7%;
+}
+
+.limpiar{
+    margin-left: 15%;
+    margin-top: 8%;
+    font-size: 185%;
+}
+
+

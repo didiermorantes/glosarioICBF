@@ -101,6 +101,24 @@
 
  }
 
+ public static function limpiar(){
+   $conexion = new Conexion();
+   $letra='clear';
+   $letraConcatenada = $letra.'%';
+   // var_dump($letraConcatenada);
+   $consulta = $conexion->prepare('SELECT id, termino, definicion, area FROM ' . self::TABLA . ' WHERE termino LIKE :letraConcatenada');
+   $consulta->bindParam(':letraConcatenada', $letraConcatenada);
+   $consulta->execute();
+   $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+   // var_dump($registro);
+   if($registro){
+       return $registro;
+    }else{
+       return false;
+    }
+
+}
+
 
  }
 ?>
