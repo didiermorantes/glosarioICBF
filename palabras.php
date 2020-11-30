@@ -68,7 +68,7 @@
     }
  }
 
- 
+ /*
  public static function buscarPorTermino($termino){
     $conexion = new Conexion();
     $consulta = $conexion->prepare('SELECT id, definicion, area FROM ' . self::TABLA . ' WHERE termino = :termino');
@@ -81,6 +81,25 @@
        return false;
     }
  }
+ */
+
+ public static function buscarPorTermino($termino){
+   $conexion = new Conexion();
+
+   $termino = $termino."%";
+
+   // $consulta = $conexion->prepare('SELECT id, termino, definicion, area FROM ' . self::TABLA . ' WHERE termino = :termino');
+   $consulta = $conexion->prepare('SELECT id, termino, definicion, area FROM ' . self::TABLA . ' WHERE termino LIKE :termino');
+   $consulta->bindParam(':termino', $termino);
+   $consulta->execute();
+   $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+   // var_dump($registro);
+   if($registro){   
+      return $registro;
+   }else{
+      return false;
+   }
+}
 
 
  public static function buscarPorLetra($letra){

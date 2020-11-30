@@ -10,7 +10,7 @@ require_once 'palabras.php';
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
-        <!-- Bootstrap CSS -->
+        <!-- Personal CSS -->
         <link rel="stylesheet" href="estilos.css">
 
     <title>Glosario ICBF</title>
@@ -20,22 +20,39 @@ require_once 'palabras.php';
 
 
       <div class="container">
-        <div class="row">
-            <div class="col-sm-4">
+        <div class="row cabecera">
+            <div class="col-sm-4 tituloGlosario">
                 GLOSARIO
             </div>
-            <div class="col-sm-8">
+            <div class="col-sm-8 tituloComentarios">
                 Recopilación de términos y definiciones relacionadas con el lenguaje
                 técnico empleado por las áreas misionales  y de apoyo del ICBF.
 
             </div>
-        </div>
+        </div> <!-- fin row linea 23 -->
+        <form action="glosario2.php" method="post"> 
         <div class="row">
-            <div class="col-sm">
-                BÚSQUEDA
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <div class="row recuadroBusqueda">
+                        <!--
+                        <button type="submit" width="32px" height="32px" name="search" value="Buscar" class="btn"><img src="bootstrap-icons/search.svg" alt="" width="32" height="32" title="Bootstrap" class ="icono"></button>
+                        
+                        <img src="bootstrap-icons/search.svg" alt="" width="32" height="32" title="Bootstrap" class ="icono">
+                        -->
+
+                        <button type="submit" width="32px" height="32px" name="search" value="Buscar" class="btn"><img src="bootstrap-icons/search.svg" alt="" width="32" height="32" title="Bootstrap" class ="icono"></button>
+                        <input type="text" id="keywords" name="keywords" class="keywordsBox">
+                </div>
             </div>
-        </div>
-        <form action="glosario2.php" method="post">  
+            <div class="col-sm-2"></div>
+            <!--
+            <div class="col-sm-3">
+                <button type="submit" name="search" value="Buscar" class="btn botonBuscar">Buscar</button>
+                <img src="bootstrap-icons/bootstrap.svg" alt="" width="32" height="32" title="Bootstrap">
+            </div>
+            -->
+        </div>  <!-- fin row linea 34 -->       
         <div class="row">     
           <div class="col-sm-9">   
              
@@ -115,11 +132,11 @@ require_once 'palabras.php';
           </div> <!-- cierre col-sm-3 -->        
         </div> <!-- fin row linea 39 -->
         </form>
-      </div>
+      </div> <!-- fin container linea 22-->
 
       <div class="container">
         <div>
-          Mensaje:
+          
         <?php
          if(isset($_POST['a'])) { 
             $palabra = Palabras::buscarPorLetra('a');
@@ -220,6 +237,11 @@ require_once 'palabras.php';
         if(isset($_POST['clear'])) { 
                 $palabra = Palabras::limpiar();
                 }    
+
+        if(isset($_POST['search'])) { 
+                $terminoBusqueda = $_POST['keywords'];
+                $palabra = Palabras::buscarPorTermino($terminoBusqueda);
+                }   
       else{
         echo "";
       }
@@ -229,14 +251,14 @@ require_once 'palabras.php';
         <!--
         <div class="row row-cols-4">
         -->
-        <div class ="row">
+        <div class ="row cuerpoCards">
                     <?php   
                     if (isset($palabra)){
                     if(!empty($palabra) ){
                         foreach($palabra as $resultado){
                             echo '<div class="col-md-3 padre">';
                             echo '<div class="col-sm">';
-                                echo '<div class="card">';
+                                echo '<div class="card estiloCards">';
                                     echo '<div class="card-body" data-toggle="modal" data-target="#modal'.$resultado['id'].'">';
                                         echo '<h5 class="card-title">'.$resultado['termino'].'</h5>';
                                     echo '</div>';
@@ -261,14 +283,14 @@ require_once 'palabras.php';
               foreach($palabra as $resultado){
                     echo '<div class="modal fade" id="modal'.$resultado['id'].'" tabindex="-1" aria-labelledby="modalLabel" aria-hidden="true">';
                         echo '<div class="modal-dialog">';
-                        echo '<div class="modal-content">';
-                            echo '<div class="modal-header">';
+                        echo '<div class="modal-content contenidoModal">';
+                            echo '<div class="modal-header headerModal">';
                             echo '<h5 class="modal-title" id="modalLabel">'.$resultado['termino'].'</h5>';
-                            echo '<button type="button" class="close" data-dismiss="modal" aria-label="Close">';
+                            echo '<button type="button" class="close botonCerrar" data-dismiss="modal" aria-label="Close">';
                                 echo '<span aria-hidden="true">&times;</span>';
                             echo '</button>';
                             echo '</div>';
-                            echo '<div class="modal-body">';
+                            echo '<div class="modal-body cuerpoModal">';
                                 echo $resultado['definicion'];
                             echo '</div>';
                         echo '</div>';
