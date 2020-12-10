@@ -30,6 +30,10 @@
     border-width: medium;
 }
 
+.limpiar:hover{
+    color:blue;
+}
+
 .botonBuscar{
         background-color: #93C84A !important;
         border-color: #76B72A !important;
@@ -70,6 +74,22 @@
     color: white;
 }
 
+.botonNuevaPalabra{
+    margin-left: 2.5%;
+    margin-top: 1.7%;
+    border-radius: 25px;
+    background-color: #93C84A !important;
+    border-color: #76B72A !important; 
+    border-width: medium;  
+}
+
+.botonNuevaPalabra:hover{
+    color: green;
+}
+
+.nuevaPalabra{
+    text-align: right;
+}
 .tituloGlosario{
     font-size: 255%;
     text-align: center;
@@ -114,4 +134,50 @@
 .cuerpoModal{
     color: blue;
 }
+
+.contenedorLogin{
+    margin-top: 10%;
+   
+}
+
+.keywordsBoxCrud{
+    border-style: hidden;
+    -webkit-appearance: none;
+    border: none;
+    outline:0;
+    margin-top: 1%;  
+    width: 83%;
+
+}
+
+.tituloCrud{
+    font-size: large;
+    text-align: center;
+    font-family: "Lucida Console", Courier, monospace;
+}
+
+.userActive{
+    text-align: center;
+    background-color: #93C84A !important;
+    color: white;
+
+}
+
+.containerResultadoCrud{
+ margin-left:2%;
+ margin-right:2%;
+}
+
+.nuevo{
+    margin-left: 6%;
+    margin-top: 2%;
+    font-size: 125%;
+    background-color: #529BD1 !important;
+    border-color: #3381C3 !important;
+    border-width: medium;
+}
+.nuevo:hover{
+    color:blue;
+}
+
 

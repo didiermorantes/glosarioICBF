@@ -1,4 +1,7 @@
 <?php
+if(!isset($_SESSION)){
+   session_start();
+}
  require_once 'conexion.php';
  class Palabras {
    private $id;
@@ -6,6 +9,7 @@
    private $definicion;
    private $area;
    const TABLA = 'palabras';
+   const CREDENCIALES = 'usuarios';
    public function getId() {
       return $this->id;
    }
@@ -67,6 +71,21 @@
        return false;
     }
  }
+
+ public static function buscarTodo(){
+   $conexion = new Conexion();
+   $consulta = $conexion->prepare('SELECT * FROM ' . self::TABLA . '');
+   $consulta->execute();
+   $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+   // var_dump($registro);
+   if($registro){
+       return $registro;
+    }else{
+       return false;
+    }
+
+    
+}
 
  /*
  public static function buscarPorTermino($termino){
@@ -135,6 +154,78 @@
     }else{
        return false;
     }
+
+}
+
+
+public static function validarCredenciales($user, $pass){
+   $conexion = new Conexion();
+   $mensaje ="";
+   // var_dump($letraConcatenada);
+   // $result = mysql_query("SELECT * from usuarios where Username='" . $usuario . "'");
+   $consulta = $conexion->prepare('SELECT * FROM ' . self::CREDENCIALES . ' WHERE user = :user');
+   $consulta->bindParam(':user', $user);
+   $consulta->execute();
+   $registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+   // var_dump($registro);
+   if($registro){
+      foreach($registro as $resultado){
+         $usuario = $resultado['user'];
+         $contrasena = $resultado['password'];
+      }
+
+         if($usuario){
+                     if($contrasena == $pass){
+                           
+                           $_SESSION['usuario'] = $usuario;
+                           $mensaje= '<br/>Usuario y Contraseña Correctos <br/>';
+                           echo $mensaje;
+                           $status = "correcto";
+                          
+                           // header("Location: CRUD.php");
+
+                     }else{
+                           // header("Location: index.html");
+                           $mensaje= '<br/>Credenciales Invalidas. No coincide contrasena <br/>';
+                           echo $mensaje;
+                           $status = "no valido";
+                           // exit();
+                           }
+         }else{
+            // header("Location: index.html");
+            $mensaje= '<br/> Credenciales Invalidas. No hay usuario <br/>';
+            echo $mensaje;
+            $status = "no valido";
+            // exit();
+         }
+
+
+    }else{
+       $mensaje = "<br/> Credenciales Invalidas. No coinciden ni usuario ni contraseña <br/>";
+       echo $mensaje;
+       $status = "no valido";
+       // exit();
+    }
+
+    return $status;
+
+}
+
+public static function insertarDatos($terminoInsertar, $definicionInsertar, $areaInsertar){
+   $conexion = new Conexion();
+   $consulta = $conexion->prepare('INSERT INTO ' . self::TABLA . ' (termino,definicion,area) VALUES  (:termino, :definicion, :area)');
+   $consulta->bindParam(':termino', $terminoInsertar);
+   $consulta->bindParam(':definicion', $definicionInsertar);
+   $consulta->bindParam(':area', $areaInsertar);
+   $insercion = $consulta->execute();
+   //$registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+   // var_dump($insercion);
+   if($insercion){
+       return true;
+    }else{
+       return false;
+    }
+
 
 }
 

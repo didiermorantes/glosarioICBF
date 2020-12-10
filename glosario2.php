@@ -21,16 +21,23 @@ require_once 'palabras.php';
 
       <div class="container">
         <div class="row cabecera">
+
             <div class="col-sm-4 tituloGlosario">
                 GLOSARIO
             </div>
             <div class="col-sm-8 tituloComentarios">
                 Recopilación de términos y definiciones relacionadas con el lenguaje
                 técnico empleado por las áreas misionales  y de apoyo del ICBF.
-
             </div>
         </div> <!-- fin row linea 23 -->
-        <form action="glosario2.php" method="post"> 
+        <div class = "row nuevaPalabra">
+            <div class="col-sm-10"></div>
+            <div class="col-sm-2">
+                    <form action="glosario2.php" method="post"> 
+                        <button type="submit"  name="newWord"  class="btn btn-success botonNuevaPalabra">Nuevas Palabras</button>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-sm-2"></div>
             <div class="col-sm-8">
@@ -41,7 +48,7 @@ require_once 'palabras.php';
                         <img src="bootstrap-icons/search.svg" alt="" width="32" height="32" title="Bootstrap" class ="icono">
                         -->
 
-                        <button type="submit" width="32px" height="32px" name="search" value="Buscar" class="btn"><img src="bootstrap-icons/search.svg" alt="" width="32" height="32" title="Bootstrap" class ="icono"></button>
+                        <button type="submit" width="32px" height="32px" name="search" value="Buscar" class="btn"><img src="bootstrap-icons/search.svg" alt="" width="32" height="32" title="buscar" class ="icono"></button>
                         <input type="text" id="keywords" name="keywords" class="keywordsBox">
                 </div>
             </div>
@@ -242,10 +249,33 @@ require_once 'palabras.php';
                 $terminoBusqueda = $_POST['keywords'];
                 $palabra = Palabras::buscarPorTermino($terminoBusqueda);
                 }   
+
+        if(isset($_POST['newWord'])) { 
+                // $palabra = "Hola";
+                echo "
+                    <script> 
+                    
+                    window.location.replace('editar.php'); 
+                
+                    </script>
+                    ";
+
+                }  
       else{
         echo "";
       }
         ?>
+        
+        <!-- 
+        <?php                    
+                    if (isset($palabra)){
+                        if(!empty($palabra) ){ 
+                                var_dump($palabra);
+
+                        }
+                    }
+        ?>
+        --> 
         </div>
 
         <!--
