@@ -17,16 +17,16 @@ if(isset($_SESSION['usuario'])){
     }
     
     if (isset($_POST["guardarCrud"]) ) {  
-        $terminoInsertar = $_POST['termino'];
-        $definicionInsertar = $_POST['definicion'];
-        $areaInsertar  = $_POST['area'];
+        $terminoInsertar = $_POST['terminoModalInsercion'];
+        $definicionInsertar = $_POST['definicionModalInsercion'];
+        $areaInsertar  = $_POST['areaModalInsercion'];
 
         $insertar = Palabras::insertarDatos($terminoInsertar, $definicionInsertar, $areaInsertar);
 
         // echo $insertar;
 
         if($insertar){
-                $mensajeInsercion ="Inserción éxitosa del término: <strong>".$terminoInsertar."</strong>, en la base de datos del glosario del ICBF";
+                $mensajeInsercion ="Inserción éxitosa del término: <strong>".$terminoInsertar."</strong>, en la base de datos del glosario del ICBF. <strong>Consulte</strong> el término para combrobar la inserción.";
 
                 echo '
                 <div class="alert alert-success alert-dismissible fade show" role="alert">
@@ -54,6 +54,86 @@ if(isset($_SESSION['usuario'])){
 
     }
 
+    if (isset($_POST["actualizarCrud"]) ) {  
+        $idInsertar = $_POST['idModalActualizacion'];
+        $terminoInsertar = $_POST['terminoModalActualizacion'];
+        $definicionInsertar = $_POST['definicionModalActualizacion'];
+        $areaInsertar  = $_POST['areaModalActualizacion'];
+
+        $actualizar = Palabras::actualizarDatos($idInsertar, $terminoInsertar, $definicionInsertar, $areaInsertar);
+
+        // echo $insertar;
+
+        if($actualizar){
+                $mensajeInsercion ="Actualización exitosa del término: <strong>".$terminoInsertar."</strong>, en la base de datos del glosario del ICBF. <strong>Consulte</strong> el término para combrobar la actualización.";
+
+                echo '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        '.$mensajeInsercion.'
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                ';
+
+        }
+        else{
+            $mensajeInsercion ="<strong>Error actualizando datos. Intente de nuevo.</strong>";
+
+            echo '
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    '.$mensajeInsercion.'
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            ';
+
+        }
+
+    }
+
+
+
+    
+    if (isset($_POST["eliminarCrud"]) ) {  
+        $idEliminar= $_POST['idModalEliminacion'];
+        $terminoEliminar = $_POST['terminoModalEliminacion'];
+
+
+        $eliminar = Palabras::eliminarDatos($idEliminar);
+
+        // echo $insertar;
+
+        if($eliminar){
+                $mensajeInsercion ="Eliminación exitosa del término: <strong>".$terminoEliminar."</strong>, en la base de datos del glosario del ICBF. <strong>Consulte</strong> el término para combrobar la eliminación.";
+
+                echo '
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        '.$mensajeInsercion.'
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                </div>
+                ';
+
+        }
+        else{
+            $mensajeInsercion ="<strong>Error eliminando datos. Intente de nuevo.</strong>";
+
+            echo '
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                    '.$mensajeInsercion.'
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+            </div>
+            ';
+
+        }
+
+    }
+
     if (isset($_POST["salir"]) ) { 
 
         // remove all session variables
@@ -62,7 +142,7 @@ if(isset($_SESSION['usuario'])){
         // destroy the session
         session_destroy(); 
 
-        header("Location: editar.php");
+        header("Location: glosario2.php");
     }
     
     // var_dump($consulta);
@@ -89,6 +169,7 @@ if(isset($_SESSION['usuario'])){
         <table class="table table-striped">  
         <thead>          
         <tr>
+            <th>ID</th>
             <th>TERMINO</th>
             <th>DEFINICION</th>
             <th>AREA</th>
@@ -113,9 +194,9 @@ if(isset($_SESSION['usuario'])){
                 <div class="col-sm-8">
                         <!-- Añadimos un botón para el diálogo modal -->
                         <button type="button"
-                            class="btn btn-lg btn-primary nuevo"
+                            class="btn btn-lg btn-success nuevo"
                             data-toggle="modal"
-                            data-target="#myModalNuevo">
+                            data-target="#myModalNuevoInsercion">
                             NUEVO
                         </button> 
                 </div>
@@ -131,11 +212,28 @@ GENERACION DINAMICA DE RESULTADOS
         foreach($consulta as $resultado){
             $middle =$middle.'
             <tr>
+                <td>'.$resultado['id'].'</td>
                 <td>'.$resultado['termino'].'</td>
                 <td>'.$resultado['definicion'].'</td>
                 <td>'.$resultado['area'].'</td>
                 <td>
-                    BOTONES
+
+                <div class="btn-group" role="group" aria-label="Basic example">
+                    <button type="button"
+                        class="btn btn-warning btn-sm"
+                        data-toggle="modal"
+                        data-target="#myModalNuevo'.$resultado['id'].'">
+                        Actualizar
+                    </button> 
+
+                    <button type="button"
+                        class="btn btn-danger btn-sm"
+                        data-toggle="modal"
+                        data-target="#myModalNuevoEliminar'.$resultado['id'].'">
+                        Eliminar
+                    </button> 
+                </div>
+
                 </td>
             </tr>
             ';
@@ -143,39 +241,33 @@ GENERACION DINAMICA DE RESULTADOS
     } 
    
 
+$modal = '
 
-    $lower = ' 
-                        </div><!-- cierre div row linea 85 -->
-                    </form> 
-             </tbody>      
-        </table> 
-    </div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="myModalNuevo" tabindex="-1" aria-labelledby="myModalNuevoLabel" aria-hidden="true">
+<!-- Modal Insercion -->
+<div class="modal fade" id="myModalNuevoInsercion" tabindex="-1" aria-labelledby="myModalNuevoInsercionLabel" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="myModalNuevoLabel">Nuevo Termino</h5>
+        <h5 class="modal-title" id="myModalNuevoInsercionLabel"><strong>Insertar</strong> Termino</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
       </div>
 
       <form role="form" name="formCreate" method="post" action="CRUD.php">
       <div class="modal-body">
+      
         <div class="input-group">
             <span class="input-group-text"><b>T&eacute;rmino&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
-            <input type="text" class="form-control" id="termino" name="termino" placeholder="Digite Término" >
+            <input type="text" class="form-control" id="terminoModalInsercion" name="terminoModalInsercion"  placeholder="Digite Término" >
         </div>
 
         <div class="input-group">
             <span class="input-group-text"><b>Definici&oacute;n</b></span>
-            <textarea class="form-control" id="definicion" name="definicion" rows="5" placeholder="Digite Definición"></textarea>
+            <textarea class="form-control" id="definicionModalInsercion" name="definicionModalInsercion" rows="5"  placeholder="Digite Definición"></textarea>
         </div>
 
          <div class="input-group">
             <span class="input-group-text"><b>&Aacute;rea&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
-            <input type="text" class="form-control" id="area" name="area" placeholder="Digite Área" >
+            <input type="text" class="form-control" id="areaModalInsercion" name="areaModalInsercion"  placeholder="Digite Área" >
         </div>
 
       </div> <!-- cierre modal-body -->
@@ -187,6 +279,187 @@ GENERACION DINAMICA DE RESULTADOS
     </div> <!-- cierre modal content -->
   </div> <!-- cierre modal dialog -->
 </div> <!-- cierre modal -->
+
+
+'; 
+/*
+GENERACION DINAMICA DE MODALES PARA ACTUALIZAR DATOS 
+*/
+      if(!empty($consulta) ){
+        foreach($consulta as $resultado){
+        $modal =$modal.'
+ 
+<!-- Modal Actualizacion -->
+<div class="modal fade" id="myModalNuevo'.$resultado['id'].'" tabindex="-1" aria-labelledby="myModalNuevoLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalNuevoLabel"><strong>Actualizar</strong> Término</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form role="form" name="formUpdate" method="post" action="CRUD.php">
+      <div class="modal-body">
+
+        <div class="input-group">
+            <span class="input-group-text"><b>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="idModalActualizacion" name="idModalActualizacion" value="'.$resultado['id'].'" placeholder="" readonly>
+        </div>
+
+
+        <div class="input-group">
+            <span class="input-group-text"><b>T&eacute;rmino&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="terminoModalActualizacion" name="terminoModalActualizacion" value="'.$resultado['termino'].'" placeholder="Digite Término" >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text"><b>Definici&oacute;n</b></span>
+            <textarea class="form-control" id="definicionModalActualizacion" name="definicionModalActualizacion" rows="5"  placeholder="Digite Definición">'.$resultado['definicion'].'</textarea>
+        </div>
+
+         <div class="input-group">
+            <span class="input-group-text"><b>&Aacute;rea&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="areaModalActualizacion" name="areaModalActualizacion" value="'.$resultado['area'].'" placeholder="Digite Área" >
+        </div>
+
+      </div> <!-- cierre modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-warning" id="actualizarCrud" name="actualizarCrud" >Actualizar</button>
+      </div> <!-- cierre modal footer -->
+      </form>
+    </div> <!-- cierre modal content -->
+  </div> <!-- cierre modal dialog -->
+</div> <!-- cierre modal -->
+
+
+
+
+
+
+
+<!-- Modal Eliminacion -->
+<div class="modal fade" id="myModalNuevoEliminar'.$resultado['id'].'" tabindex="-1" aria-labelledby="myModalNuevoEliminarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalNuevoEliminarLabel"><strong>Eliminar</strong> Termino</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form role="form" name="formDelete" method="post" action="CRUD.php">
+      <div class="modal-body">
+
+        <div class="input-group">
+            <span class="input-group-text"><b>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="idModalEliminacion" name="idModalEliminacion" value="'.$resultado['id'].'" placeholder="" readonly >
+        </div>
+
+
+        <div class="input-group">
+            <span class="input-group-text"><b>T&eacute;rmino&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="terminoModalEliminacion" name="terminoModalEliminacion" value="'.$resultado['termino'].'" placeholder="Digite Término" readonly >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text"><b>Definici&oacute;n</b></span>
+            <textarea class="form-control" id="definicionModalEliminacion" name="definicionModalEliminacion" rows="5"  placeholder="Digite Definición" readonly>'.$resultado['definicion'].'</textarea>
+        </div>
+
+         <div class="input-group">
+            <span class="input-group-text"><b>&Aacute;rea&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="areaModalEliminacion" name="areaModalEliminacion" value="'.$resultado['area'].'" placeholder="Digite Área" readonly>
+        </div>
+
+      </div> <!-- cierre modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-danger" id="eliminarCrud" name="eliminarCrud" >Eliminar</button>
+      </div> <!-- cierre modal footer -->
+      </form>
+    </div> <!-- cierre modal content -->
+  </div> <!-- cierre modal dialog -->
+</div> <!-- cierre modal -->
+
+
+
+
+
+';
+
+    }
+}
+
+
+
+/*
+GENERACION DINAMICA DE MODALES PARA ELIMINAR DATOS 
+
+$modal2 ='';
+
+if(!empty($consulta) ){
+    foreach($consulta as $resultado2){
+    $modal2 =$modal2.'
+
+
+
+<!-- Modal Eliminacion -->
+<div class="modal fade" id="myModalNuevoEliminar'.$resultado2['id'].'" tabindex="-1" aria-labelledby="myModalNuevoEliminarLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="myModalNuevoEliminarLabel"><strong>Eliminar</strong> Termino</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <form role="form" name="formDelete" method="post" action="CRUD.php">
+      <div class="modal-body">
+
+        <div class="input-group">
+            <span class="input-group-text"><b>ID&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="idModalEliminacion" name="idModalEliminacion" value="'.$resultado2['id'].'" placeholder="" disabled >
+        </div>
+
+
+        <div class="input-group">
+            <span class="input-group-text"><b>T&eacute;rmino&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="terminoModalEliminacion" name="terminoModalEliminacion" value="'.$resultado2['termino'].'" placeholder="Digite Término" disabled >
+        </div>
+
+        <div class="input-group">
+            <span class="input-group-text"><b>Definici&oacute;n</b></span>
+            <textarea class="form-control" id="definicionModalEliminacion" name="definicionModalEliminacion" rows="5"  placeholder="Digite Definición" disabled>'.$resultado2['definicion'].'</textarea>
+        </div>
+
+         <div class="input-group">
+            <span class="input-group-text"><b>&Aacute;rea&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</b></span>
+            <input type="text" class="form-control" id="areaModalEliminacion" name="areaModalEliminacion" value="'.$resultado2['area'].'" placeholder="Digite Área" disabled>
+        </div>
+
+      </div> <!-- cierre modal-body -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cerrar</button>
+        <button type="submit" class="btn btn-danger" id="eliminarCrud" name="eliminarCrud" >Eliminar</button>
+      </div> <!-- cierre modal footer -->
+      </form>
+    </div> <!-- cierre modal content -->
+  </div> <!-- cierre modal dialog -->
+</div> <!-- cierre modal -->
+
+
+
+
+';
+        }
+    }
+
+*/
+    $lower = ' 
+                        </div><!-- cierre div row linea 85 -->
+                    </form> 
+             </tbody>      
+        </table> 
+    </div>
 
       
       <!-- Optional JavaScript; choose one of the two! -->
@@ -233,7 +506,8 @@ GENERACION DINAMICA DE RESULTADOS
                     <div class='col-sm-1'></div>
                 <div class='col-sm-10'>
         ";
-    echo $upper.$middle.$lower;
+    // echo $upper.$middle.$modal.$modal2.$lower;
+    echo $upper.$middle.$modal.$lower;
     echo "       </div> 
                     <div class='col-sm-1'></div>
           </div>";

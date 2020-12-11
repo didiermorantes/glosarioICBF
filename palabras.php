@@ -230,5 +230,60 @@ public static function insertarDatos($terminoInsertar, $definicionInsertar, $are
 }
 
 
+
+public static function actualizarDatos($idInsertar,$terminoInsertar, $definicionInsertar, $areaInsertar){
+   $conexion = new Conexion();
+   $consulta = $conexion->prepare('UPDATE ' . self::TABLA . ' SET termino= :termino , definicion= :definicion , area= :area WHERE id= :id ');
+   $consulta->bindParam(':id', $idInsertar, PDO::PARAM_INT);
+   $consulta->bindParam(':termino', $terminoInsertar, PDO::PARAM_STR);
+   $consulta->bindParam(':definicion', $definicionInsertar, PDO::PARAM_STR);
+   $consulta->bindParam(':area', $areaInsertar, PDO::PARAM_STR);
+   $actualizacion = $consulta->execute();
+   //$registro = $consulta->fetchAll(PDO::FETCH_ASSOC);
+   // var_dump($actualizacion);
+   
+   /*
+   echo "idInsertar: ";
+   echo $idInsertar;
+   
+   echo "terminoInsertar:";
+   echo $terminoInsertar;
+   
+   echo "definicionInsertar:";
+   echo $definicionInsertar;
+   
+   echo "areaInsertar:";
+   echo $areaInsertar;
+   
+   var_dump($consulta);
+
+   */
+   
+   if($actualizacion){
+       return true;
+    }else{
+       return false;
+    }
+}
+
+
+
+
+
+public static function eliminarDatos($idEliminar){
+   $conexion = new Conexion();
+   $consulta = $conexion->prepare('DELETE FROM ' . self::TABLA . ' WHERE id= :id ');
+   $consulta->bindParam(':id', $idEliminar, PDO::PARAM_INT);
+   $eliminacion = $consulta->execute();
+
+   if($eliminacion){
+       return true;
+    }else{
+       return false;
+    }
+}
+
+
+
  }
 ?>

@@ -169,15 +169,8 @@
 }
 
 .nuevo{
-    margin-left: 6%;
+    margin-left: 1%;
     margin-top: 2%;
-    font-size: 125%;
-    background-color: #529BD1 !important;
-    border-color: #3381C3 !important;
     border-width: medium;
 }
-.nuevo:hover{
-    color:blue;
-}
-
 
