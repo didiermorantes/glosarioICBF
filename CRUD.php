@@ -5,8 +5,9 @@ if(!isset($_SESSION)){
 }
 require_once 'palabras.php';
 
+/* if variables de sesion
 if(isset($_SESSION['usuario'])){
-
+*/
     
     if(isset($_POST['searchCrud'])) { 
         $terminoBusqueda = $_POST['keywordsCrud'];
@@ -142,7 +143,8 @@ if(isset($_SESSION['usuario'])){
         // destroy the session
         session_destroy(); 
 
-        header("Location: glosario2.php");
+        // header("Location: glosario2.php");
+        header("Location: index.php");
     }
     
     // var_dump($consulta);
@@ -511,6 +513,8 @@ if(!empty($consulta) ){
     echo "       </div> 
                     <div class='col-sm-1'></div>
           </div>";
+
+/* else variable de sesion
 }
 else{
 
@@ -518,6 +522,7 @@ else{
              <div>
         ";
     echo "DEBE AUTENTICARSE PARA REALIZAR OPERACIONES";
+    echo "Sesion:  " . $_SESSION['usuario'];
     echo "       </div> 
         </div>";
 
@@ -528,6 +533,6 @@ else{
                         // destroy the session
                         session_destroy(); 
 }
-
+*/
  
 ?>
