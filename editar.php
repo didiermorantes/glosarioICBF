@@ -84,7 +84,7 @@ echo '
 <div class="row">
     <div class="col-sm-3"></div>
     <div class="col-sm-6">
-        <input type="text" class="form-control" name="nnombre" placeholder="Usuario. Pruebe \'adminICBF\' sin comillas como usuario y contrasena" />
+        <input type="text" class="form-control" name="nnombre" placeholder="Digite usuario y contrasena" />
     </div>
     <div class="col-sm-3"></div>
 </div>
