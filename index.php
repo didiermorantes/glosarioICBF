@@ -33,7 +33,8 @@ require_once 'palabras.php';
         <div class = "row nuevaPalabra">
             <div class="col-sm-10"></div>
             <div class="col-sm-2">
-                    <form action="glosario2.php" method="post"> 
+                    <form action="index.php" method="post"> 
+                    <button type="submit" width="32px" height="32px" name="search" value="Buscar" style="display:none;"></button>
                         <button type="submit"  name="newWord"  class="btn btn-success botonNuevaPalabra">Nuevas Palabras</button>
             </div>
         </div>
